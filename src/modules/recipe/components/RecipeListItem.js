@@ -2,23 +2,36 @@ import React, { Component, PropTypes } from 'react';
 import {
 	View,
 	StyleSheet,
-	Text
+	Text,
+	TouchableHighlight
 }  from 'react-native';
-
 
 export default class RecipeListItem extends Component {
 
 	static propTypes = {
-		name: PropTypes.string
+		name: PropTypes.string,
+		selectRecipe: PropTypes.func
 	};
+	
+	constructor(props) {
+		super(props);
+		this._onPressHandler = this._onPressHandler.bind(this);
+	}
+	
+	_onPressHandler() {
+		this.props.selectRecipe()
+	}
 
 	render() {
 		return (
-			<View style={styles.recipeItemContainer}>
+			<TouchableHighlight 
+				style={styles.recipeItemContainer}
+				onPress={this._onPressHandler}
+			>
 				<Text style={styles.recipeItemText}>
 					{this.props.name}
 				</Text>
-			</View>
+			</TouchableHighlight>
 		)
 	}
 }

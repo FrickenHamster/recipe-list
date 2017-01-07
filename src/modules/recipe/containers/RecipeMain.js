@@ -1,23 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-/*import {
-}  from 'react-native';*/
+import {
+	View
+}  from 'react-native';
 import { connect } from 'react-redux';
 
 import RecipeList from '../components/RecipeList';
-
-const actions = {};
+import TopBar from '../../../components/TopBar';
 
 class RecipeMain extends Component {
 	
 	static propTypes = {
-		recipes: PropTypes.array
+		recipes: PropTypes.array,
+		selectRecipe: PropTypes.func
 	};
+	
+	constructor(props) {
+		super(props);
+	}
 	
 	render() {
 		return (
-			<RecipeList
-				recipes={this.props.recipes}
-			/>
+			<View>
+				<TopBar
+					titleName={"My Recipes"}
+				/>
+				<RecipeList
+					recipes={this.props.recipes}
+					selectRecipe={this.props.selectRecipe}
+				/>
+			</View>
 		)
 	}
 }
@@ -29,5 +40,11 @@ function mapStateToProps(state) {
 	};
 }
 
+function mapDispatchToProps(dispatch) {
+	return {
+		selectRecipe: (id) => {
+			dispatch(selectRecipe(id))}
+	}
+}
 
-export default connect(mapStateToProps, actions)(RecipeMain);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeMain);

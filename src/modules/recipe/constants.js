@@ -1,4 +1,4 @@
 
 export const NAME = 'recipe';
 
-export const EDIT = `${NAME}/EDIT`;
+export const UPDATE = `${NAME}/UPDATE`;

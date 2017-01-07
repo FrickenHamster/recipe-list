@@ -1,6 +1,10 @@
+import { Actions } from 'react-native-router-flux';
+
+import { UPDATE } from './constants';
 
 const initialState = {
 	'burgers': {
+		id: 'burgers',
 		name: 'Burgers',
 		ingredients: ['eggs', 'beef', 'pepper'],
 		cookMethod: {
@@ -9,6 +13,7 @@ const initialState = {
 		}
 	},
 	'pizza': {
+		id: 'pizza',
 		name: 'Pizza',
 		ingredients: ['flour', 'tomatoes', 'salt', 'cheese'],
 		cookMethod: {
@@ -16,7 +21,8 @@ const initialState = {
 			time: 20
 		}
 	},
-	'fried chicken': {
+	'fried_chicken': {
+		id: 'fried_chicken',
 		name: 'Fried Chicken',
 		ingredients: ['chicken', 'flour', 'eggs', 'bread crumbs'],
 		cookMethod: {
@@ -24,7 +30,8 @@ const initialState = {
 			time: 6
 		}
 	},
-	'boiled egg': {
+	'boiled_egg': {
+		id: 'boiled_egg',
 		name: 'Boiled Egg',
 		ingredients: ['eggs'],
 		cookMethod: {
@@ -36,6 +43,17 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
+		case UPDATE:
+			const newState = {};
+			Object.assign(newState, state);
+			newState[action.payload.recipeID].cookMethod = {
+				temperature: action.payload.temperature,
+				time: action.payload.time
+			};
+			Actions.pop({refresh:{recipeID: action.payload.recipeID}});
+			return newState;
+			break;
+		
 		default:
 			return state;
 	}

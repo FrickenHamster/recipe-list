@@ -7,10 +7,13 @@ import {
 
 import RecipeListItem from './RecipeListItem';
 
+import { Actions } from 'react-native-router-flux';
+
 export default class RecipeList extends Component {
 
 	static propTypes = {
-		recipes: PropTypes.array
+		recipes: PropTypes.array,
+		selectRecipe: PropTypes.func
 	};
 
 	constructor(props) {
@@ -19,16 +22,24 @@ export default class RecipeList extends Component {
 		this.state = {
 			dataSource: ds.cloneWithRows(props.recipes)
 		};
-		console.log(this.state.dataSource);
+		this.createSelectCallback = this.createSelectCallback.bind(this);
+	}
+	
+	createSelectCallback(id) {
+		//this.props.selectRecipe(id);
+		Actions.recipeShow({
+			recipeID: id
+		});
 	}
 
 	renderItem(rowData) {
 		return (
 			<RecipeListItem
 				name={rowData.name}
+				selectRecipe={() => {
+					this.createSelectCallback(rowData.id)}}
 			/>);
 	}
-
 
 	render() {
 		return (

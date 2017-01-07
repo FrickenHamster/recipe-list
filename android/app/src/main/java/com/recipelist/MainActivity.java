@@ -1,6 +1,8 @@
 package com.recipelist;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.smixx.reactnativeicons.ReactNativeIcons;
 
 public class MainActivity extends ReactActivity {
 
